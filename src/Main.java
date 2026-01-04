@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
         StudentManager manager=new StudentManager();
+        manager.loadFromFile();
         while(true){
             System.out.println("*************** Student Management System ***************");
             System.out.println("1. Add Student");
@@ -11,9 +12,10 @@ public class Main {
             System.out.println("3. Delete Student");
             System.out.println("4. Search Student");
             System.out.println("5. List All Students");
-            System.out.println("6. Exit");
+            System.out.println("6. Save Data to File");
+            System.out.println("7. Exit");
             int choice=scanner.nextByte();
-            if(choice==6)
+            if(choice==7)
                 break;
             else{
             switch (choice){
@@ -37,6 +39,7 @@ public class Main {
                     System.out.println("What do you want to update");
                     System.out.println("1: Name , 2: Age , 3: Department , 4: All Data");
                     int dec=scanner.nextByte();
+                    scanner.nextLine();
                     switch (dec){
                         case 1:{
                             System.out.print("Name:");
@@ -94,6 +97,10 @@ public class Main {
                 }
                 case 5: {
                     manager.printAllStudents();
+                    break;
+                }
+                case 6: {
+                    manager.saveToFile();
                     break;
                 }
 
