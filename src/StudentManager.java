@@ -5,18 +5,30 @@ public class StudentManager{
 
     public void loadFromFile() {
         File file = new File("students.txt");
-        if (!file.exists()) return; // Do nothing if file doesn't exist
+        if (!file.exists()) return;
 
         try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
-                // Since you saved it using s.display(), we just print it for now
-                System.out.println("Loaded record: " + line);
+
+                if (line.trim().isEmpty() || !line.contains(",")) continue;
+
+                String[] parts = line.split(",");
+
+                int id = Integer.parseInt(parts[0]);
+                String name = parts[1];
+                int age = Integer.parseInt(parts[2]);
+                String department = parts[3];
+
+                if (findStudentById(id) == null) {
+                    students.add(new Student(id, name, department, age));
+                }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error loading file: " + e.getMessage());
         }
     }
+
     private ArrayList<Student >students =new ArrayList<Student>();
 
     public boolean addStudent(Student student) {
@@ -97,18 +109,20 @@ public class StudentManager{
         }
     }
     public void saveToFile() {
-        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter("students.txt"))) {
-            if (students.isEmpty()) {
-                writer.println("No students in the system.");
-            } else {
-                for (Student s : students) {
-                    writer.println(s.display()); // This saves the same text you see on screen
-                }
+        try (PrintWriter writer = new PrintWriter(new FileWriter("students.txt"))) {
+            for (Student s : students) {
+                writer.println(
+                        s.getId() + "," +
+                                s.getName() + "," +
+                                s.getAge() + "," +
+                                s.getDepartment()
+                );
             }
-            System.out.println("Data successfully saved to students.txt!");
-        } catch (java.io.IOException e) {
-            System.out.println("Error saving to file: " + e.getMessage());
+            System.out.println("Data saved successfully");
+        } catch (IOException e) {
+            System.out.println("Error saving to file");
         }
     }
+
 
 }

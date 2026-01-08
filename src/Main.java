@@ -15,8 +15,10 @@ public class Main {
             System.out.println("6. Save Data to File");
             System.out.println("7. Exit");
             int choice=scanner.nextByte();
-            if(choice==7)
+            if(choice==7) {
+                manager.saveToFile();
                 break;
+            }
             else{
             switch (choice){
                 case 1:{
@@ -45,6 +47,7 @@ public class Main {
                             System.out.print("Name:");
                             String name=scanner.nextLine();
                             manager.updateStudentName(id,name);
+                            System.out.println("Updated successfully");
                             break;
                         }
                         case 2:{
@@ -52,12 +55,14 @@ public class Main {
                             int age=scanner.nextByte();
                             scanner.nextLine();
                             manager.updateStudentAge(id,age);
+                            System.out.println("Updated successfully");
                             break;
                         }
                         case 3:{
                             System.out.print("Department:");
                             String department=scanner.nextLine();
                             manager.updateStudentDepartment(id,department);
+                            System.out.println("Updated successfully");
                             break;
                         }
                         case 4:{
@@ -69,9 +74,11 @@ public class Main {
                             System.out.print("Department:");
                             String newDepartment=scanner.nextLine();
                             manager.updateStudent(id,newName,newDepartment,newAge);
+                            System.out.println("Updated successfully");
                             break;
                         }
                     }
+                break;
                 }
                 case 3:{
                     System.out.println("Enter ID to delete");
